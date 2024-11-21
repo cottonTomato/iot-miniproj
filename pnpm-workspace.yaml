@@ -1,0 +1,4 @@
+packages:
+  - 'notification-service'
+  - 'authentication-service'
+  - 'models'
