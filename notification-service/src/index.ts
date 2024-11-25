@@ -44,15 +44,17 @@ async function sendPushNotification(body: string, expoPushToken: string) {
 
 export const deviceMessageHandler = onMessagePublished(
   'test-topic',
-  async (_event) => {
+  async (event) => {
     try {
-      // const name = event.data.message.json.name;
+      const data = event.data.message.json;
       logger.log('Sending Message');
-      await sendPushNotification(
-        // `Device: ${name}`,
-        'test 2 see u',
-        'ExponentPushToken[2wc2Z7Mu0l9qF7NocIBkTt]'
-      );
+      if (data.distance > 10) {
+        await sendPushNotification(
+          'Dustbin alert!!',
+          'ExponentPushToken[2wc2Z7Mu0l9qF7NocIBkTt]'
+        );
+        logger.log('Message Sent');
+      }
       logger.log('Message Sent');
     } catch (err) {
       if (err instanceof ReferenceError) {
